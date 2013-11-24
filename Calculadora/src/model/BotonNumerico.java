@@ -10,7 +10,11 @@ import javax.swing.JPanel;
 
 import vista.Vista;
 
-
+/**
+ * Crea un botón de tipo numerico que incluye la funcionalidad básica que va a tener
+ * @author MAMAEWOK
+ *
+ */
 public class BotonNumerico extends JButton implements ActionListener{
 
 	/**
@@ -36,7 +40,9 @@ public class BotonNumerico extends JButton implements ActionListener{
 		panelNum.add(this);
 		this.addActionListener(this);
 	}
-	
+	/**
+	 * Acción a relizar por nuestro botón numérico
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton btnNum = (BotonNumerico) e.getSource();

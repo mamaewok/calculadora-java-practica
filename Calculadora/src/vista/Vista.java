@@ -13,7 +13,11 @@ import javax.swing.border.EmptyBorder;
 
 import model.BotonNumerico;
 import model.BotonOperacion;
-
+/**
+ * Crea la vista básica y contiene métodos que tienen que ver con el entorno gráfico
+ * @author MAMAEWOK
+ *
+ */
 public class Vista extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -69,7 +73,7 @@ public class Vista extends JFrame {
 		this.add(pantalla, BorderLayout.NORTH);
 		this.add(panel, BorderLayout.CENTER);
 		this.add(panelIgual, BorderLayout.SOUTH);
-		setResizable(false);
+		this.setResizable(false);
 		this.setVisible(true);
 
 	} //Acaba el constructor
@@ -127,6 +131,8 @@ public class Vista extends JFrame {
 			resultado *= new Double(pantalla.getText());
 		else if(operacion.equals("÷"))
 			resultado /= new Double(pantalla.getText());
+		else
+			resultado = new Double(pantalla.getText());
 			
 		pantalla.setText("" + resultado);
 		operacion = "";

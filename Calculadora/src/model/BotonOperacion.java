@@ -9,7 +9,11 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import vista.Vista;
-
+/**
+ * Crea un botón de tipo operación que incluye la funcionalidad básica que va a tener
+ * @author MAMAEWOK
+ *
+ */
 public class BotonOperacion extends JButton implements ActionListener{
 	
 	/**
@@ -17,7 +21,12 @@ public class BotonOperacion extends JButton implements ActionListener{
 	 */
 	private static final long serialVersionUID = 1L;
 	private Vista vista;
-	
+	/**
+	 * Establece la VISTA, operador y el panel al que pertenece dicho botón a instanciar
+	 * @param vista
+	 * @param operacion
+	 * @param panel
+	 */
 	public BotonOperacion(Vista vista, String operacion, JPanel panel){
 		super();
 		this.vista = vista;
@@ -28,7 +37,9 @@ public class BotonOperacion extends JButton implements ActionListener{
 		panel.add(this);
 		this.addActionListener(this);
 	}
-	
+	/**
+	 * Acción a relizar por nuestro botón operaación
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton btnOper = (JButton) e.getSource();
