@@ -1,5 +1,7 @@
 package calculadora;
 
+import javax.swing.JFrame;
+
 import vista.Vista;
 
 /**
