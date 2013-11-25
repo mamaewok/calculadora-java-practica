@@ -13,27 +13,30 @@ import javax.swing.border.EmptyBorder;
 
 import model.BotonNumerico;
 import model.BotonOperacion;
+
 /**
- * Crea la vista básica y contiene métodos que tienen que ver con el entorno gráfico
+ * Crea la vista básica y contiene métodos que tienen que ver con el entorno
+ * gráfico
+ * 
  * @author MAMAEWOK
- *
+ * 
  */
 public class Vista extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	
-	/**numero tecleado*/
+
+	/** numero tecleado */
 	JTextField pantalla;
-	BotonNumerico b1, b2, b3,b4,b5,b6,b7,b8,b9,b0,bPunto;
-	BotonOperacion bMas,bMenos,bMulti,bDiv,bC,bIgual;
-	
-	/**Indica si iniciamos una nueva operacion o no*/
+	BotonNumerico b1, b2, b3, b4, b5, b6, b7, b8, b9, b0, bPunto;
+	BotonOperacion bMas, bMenos, bMulti, bDiv, bC, bIgual;
+
+	/** Indica si iniciamos una nueva operacion o no */
 	boolean nuevaOperacion = true;
-	/**Guarda la operacion a realizar*/
+	/** Guarda la operacion a realizar */
 	String operacion = "0";
-	/**Guarda el resultado de la operacion anterior o la que estamos tecleando*/
+	/** Guarda el resultado de la operacion anterior o la que estamos tecleando */
 	double resultado;
-	
+
 	/**
 	 * Constructor que crea los componentes básicos de la calculadora
 	 */
@@ -52,23 +55,23 @@ public class Vista extends JFrame {
 		b1 = new BotonNumerico(this, "1", panel);
 		b2 = new BotonNumerico(this, "2", panel);
 		b3 = new BotonNumerico(this, "3", panel);
-		bMas = new BotonOperacion(this,"+", panel);
+		bMas = new BotonOperacion(this, "+", panel);
 		b4 = new BotonNumerico(this, "4", panel);
 		b5 = new BotonNumerico(this, "5", panel);
 		b6 = new BotonNumerico(this, "6", panel);
-		bMenos = new BotonOperacion(this,"-", panel);
+		bMenos = new BotonOperacion(this, "-", panel);
 		b7 = new BotonNumerico(this, "7", panel);
 		b8 = new BotonNumerico(this, "8", panel);
 		b9 = new BotonNumerico(this, "9", panel);
-		bMulti = new BotonOperacion(this,"x", panel);
-		bPunto = new BotonNumerico(this,".", panel);
+		bMulti = new BotonOperacion(this, "x", panel);
+		bPunto = new BotonNumerico(this, ".", panel);
 		b0 = new BotonNumerico(this, "0", panel);
-		bC = new BotonOperacion(this,"C", panel);
-		bDiv = new BotonOperacion(this,"÷", panel);
+		bC = new BotonOperacion(this, "C", panel);
+		bDiv = new BotonOperacion(this, "÷", panel);
 		bIgual = new BotonOperacion(this, "=", panelIgual);
 
 		this.setSize(250, 300);
-		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); 
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 		this.add(pantalla, BorderLayout.NORTH);
 		this.add(panel, BorderLayout.CENTER);
@@ -76,66 +79,87 @@ public class Vista extends JFrame {
 		this.setResizable(false);
 		this.setVisible(true);
 
-	} //Acaba el constructor
-	
+	} // Acaba el constructor
+
+	/**
+	 * Quita los dos últimos carácteres del texto que aparezca en la caja de
+	 * texto
+	 */
+	public void imprimeSinDecimal() { // TODO Hoy ya no funca nada
+		String text = "" + pantalla.getText();
+		if (text.endsWith(".0")) {
+			resultado += new Double(text.substring(0, text.length() - 1));
+			pantalla.setText("" + resultado);
+		} else {
+			pantalla.setText("" + resultado);
+		}
+	}
+
 	/**
 	 * Gestiona la pulsacion de teclas numéricas
+	 * 
 	 * @param digito
 	 */
-	public void numeroPulsado(String digito){
-		if(pantalla.getText().equals("0") || nuevaOperacion){
+	public void numeroPulsado(String digito) {
+		if (pantalla.getText().equals("0") || nuevaOperacion) {
 			pantalla.setText(digito);
-			//Ver para que aparezca el 0 con decimales
-			if(pantalla.getText().equals("."))
+			// Ver para que aparezca el 0 con decimales
+			if (pantalla.getText().equals("."))
 				pantalla.setText("0.");
-		} 
-		else{
+		} else {
 			pantalla.setText(pantalla.getText() + digito);
 		}
 		nuevaOperacion = false;
-		
+
 	}
-	
+
 	/**
 	 * Gestiona la pulsacion de teclas de operacion
+	 * 
 	 * @param oper
 	 */
-	public void operacionPulsado(String oper){
-		if(oper.equals("="))
+	public void operacionPulsado(String oper) {
+		if (oper.equals("="))
 			calcularResultado();
-		else if(oper.equals("C")){
+		else if (oper.equals("C")) {
 			resultado = 0;
 			pantalla.setText("0");
 			nuevaOperacion = true;
-		}
-		else{
+		} else {
 			operacion = oper;
-			if((resultado > 0) && !nuevaOperacion){
+			if ((resultado > 0) && !nuevaOperacion) {
 				calcularResultado();
-			}
-			else
+			} else {
 				resultado = new Double(pantalla.getText());
+				pantalla.setText("" + resultado);
+			}
 		}
 		nuevaOperacion = true;
 	}
 
 	/**
-	 * Calcula el resultado y lo saca por pantalla
+	 * Calcula el resultado y lo saca por pantalla sacando un mensaje de error en el caso de ser resultado infinito
 	 */
-	public void calcularResultado(){
-		if(operacion.equals("+"))
+	public void calcularResultado() {
+		if (operacion.equals("+")) {
 			resultado += new Double(pantalla.getText());
-		else if(operacion.equals("-"))
+		} else if (operacion.equals("-")) {
 			resultado -= new Double(pantalla.getText());
-		else if(operacion.equals("x"))
+		} else if (operacion.equals("x")) {
 			resultado *= new Double(pantalla.getText());
-		else if(operacion.equals("÷"))
+		} else if (operacion.equals("÷")) {
 			resultado /= new Double(pantalla.getText());
-		else
+		} else {
 			resultado = new Double(pantalla.getText());
-			
-		pantalla.setText("" + resultado);
-		operacion = "";
+		}
+		if(Double.isInfinite(resultado)){
+			pantalla.setText("ERROR");
+		}
+		else{
+			pantalla.setText("" + resultado);
+			operacion = "";
+		}
+		
 	}
-	
+
 }
