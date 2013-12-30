@@ -86,7 +86,7 @@ public class Vista extends JFrame {
 	 * Quita los dos últimos carácteres del texto que aparezca en la caja de
 	 * texto
 	 */
-	public void imprimeSinDecimal() { // TODO Hoy ya no funca nada
+	public void imprimeSinDecimal() { 
 		String text = pantalla.getText();
 		if (text.endsWith(".0")) {
 			resultado = new Double(text);
