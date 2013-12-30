@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.text.DecimalFormat;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -86,10 +87,11 @@ public class Vista extends JFrame {
 	 * texto
 	 */
 	public void imprimeSinDecimal() { // TODO Hoy ya no funca nada
-		String text = "" + pantalla.getText();
+		String text = pantalla.getText();
 		if (text.endsWith(".0")) {
-			resultado += new Double(text.substring(0, text.length() - 1));
-			pantalla.setText("" + resultado);
+			resultado = new Double(text);
+			DecimalFormat df = new DecimalFormat("0.#");
+			pantalla.setText("" + (df.format(resultado)));
 		} else {
 			pantalla.setText("" + resultado);
 		}
@@ -143,20 +145,26 @@ public class Vista extends JFrame {
 	public void calcularResultado() {
 		if (operacion.equals("+")) {
 			resultado += new Double(pantalla.getText());
+			imprimeSinDecimal();
 		} else if (operacion.equals("-")) {
 			resultado -= new Double(pantalla.getText());
+			imprimeSinDecimal();
 		} else if (operacion.equals("x")) {
 			resultado *= new Double(pantalla.getText());
+			imprimeSinDecimal();
 		} else if (operacion.equals("÷")) {
 			resultado /= new Double(pantalla.getText());
+			imprimeSinDecimal();
 		} else {
 			resultado = new Double(pantalla.getText());
+			imprimeSinDecimal();
 		}
 		if(Double.isInfinite(resultado)){
 			pantalla.setText("ERROR");
 		}
 		else{
 			pantalla.setText("" + resultado);
+			imprimeSinDecimal();
 			operacion = "";
 		}
 		

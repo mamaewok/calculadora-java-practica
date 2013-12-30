@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import vista.Vista;
 
 /**
- * Crea un botón de tipo numerico que incluye la funcionalidad básica que va a tener
+ * Crea un botón de tipo numerico que incluye la funcionalidad básica que va a tener este tipo de botones
  * @author MAMAEWOK
  *
  */
