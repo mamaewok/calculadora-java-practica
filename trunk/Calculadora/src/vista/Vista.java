@@ -122,7 +122,11 @@ public class Vista extends JFrame {
 	 */
 	public void operacionPulsado(String oper) {
 		if (oper.equals("="))
-			calcularResultado();
+			try{
+				calcularResultado();
+			}catch(NumberFormatException nfe){
+				pantalla.setText("ERROR");
+			}
 		else if (oper.equals("C")) {
 			resultado = 0;
 			pantalla.setText("0");
